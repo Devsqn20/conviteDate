@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Convite Especial</title>
   <style>
-    /* Plano de fundo romântico + tecnológico */
     body {
       font-family: 'Arial', sans-serif;
       display: flex;
@@ -14,15 +13,8 @@
       margin: 0;
       text-align: center;
       color: #333;
-      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      background: #ffe6f0;
+      overflow: hidden;
     }
 
     .container {
@@ -32,35 +24,43 @@
       box-shadow: 0 5px 20px rgba(0,0,0,0.2);
       max-width: 650px;
       width: 90%;
+      position: relative;
+      z-index: 2;
     }
 
-    /* Estilo do contador */
+    /* Contador */
     .countdown {
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       margin-bottom: 25px;
       font-family: 'Courier New', monospace;
       flex-wrap: wrap;
     }
 
+    .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 5px;
+    }
+
+    .label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #ff4d6d;
+    }
+
     .time-box {
       background: #fff;
       padding: 15px;
-      margin: 5px;
       border-radius: 8px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
       min-width: 70px;
       font-size: 22px;
       font-weight: bold;
       color: #222;
-    }
-
-    .separator {
-      font-size: 26px;
-      font-weight: bold;
-      color: orange;
-      margin: 0 5px;
     }
 
     h1 {
@@ -113,20 +113,43 @@
       text-decoration: none;
     }
     .btn-nao:hover { background: #bbb; }
+
+    /* Corações animados */
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      font-size: 20px;
+      animation: floatUp 8s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-
-    <!-- Contador regressivo -->
+    <!-- Contador -->
     <div class="countdown">
-      <div class="time-box" id="days">00</div>
-      <div class="separator">:</div>
-      <div class="time-box" id="hours">00</div>
-      <div class="separator">:</div>
-      <div class="time-box" id="minutes">00</div>
-      <div class="separator">:</div>
-      <div class="time-box" id="seconds">00</div>
+      <div class="time-block">
+        <div class="label">Dias</div>
+        <div class="time-box" id="days">00</div>
+      </div>
+      <div class="time-block">
+        <div class="label">Horas</div>
+        <div class="time-box" id="hours">00</div>
+      </div>
+      <div class="time-block">
+        <div class="label">Minutos</div>
+        <div class="time-box" id="minutes">00</div>
+      </div>
+      <div class="time-block">
+        <div class="label">Segundos</div>
+        <div class="time-box" id="seconds">00</div>
+      </div>
     </div>
 
     <!-- Texto principal -->
@@ -176,6 +199,22 @@
 
     setInterval(countdown, 1000);
     countdown();
+
+    // Criar corações animados
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+    setInterval(createHeart, 500);
   </script>
 </body>
 </html>
